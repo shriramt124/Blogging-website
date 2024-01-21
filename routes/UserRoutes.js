@@ -71,5 +71,7 @@ UserRoutes.put(
 //GET --> /api/v1/users/getAllUser
 UserRoutes.get("/",verifyUser,userController.getAllUsers);
 
+UserRoutes.get("/logout-user",verifyUser,userController.logoutUser);
+
 /* UserRoutes.delete(userController.removeUser);*/
 module.exports = UserRoutes;

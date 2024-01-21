@@ -1,0 +1,32 @@
+ 
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.error {
+    font-size: 100px;
+    color: #ff0000;
+}
+
+.message {
+    font-size: 24px;
+    color: #333333;
+}
+
+.link {
+    font-size: 18px;
+    color: #0000ff;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+ 

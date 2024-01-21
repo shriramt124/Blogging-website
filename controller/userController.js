@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const Post = require("../model/PostModel")
 const LoginUserId = require("../utils/LoginUserId")
 
+
+
 exports.addNewUser = async (req, res, next) => {
   //1.get {username,email,password,cnfpassword} from req.body
   //2.check if every field is provided or not
@@ -45,10 +47,12 @@ exports.addNewUser = async (req, res, next) => {
     password = await bcrypt.hash(password, salt);
 
     let newUser = await User.create({
+
       username,
       email,
       password,
       bio:req.body.bio ? bio:""
+
     });
      
    /*  res.status(200).json({
@@ -60,7 +64,8 @@ exports.addNewUser = async (req, res, next) => {
     }); */
    res.redirect("/api/v1/users/login");
   } catch (error) {
-    return next(appErr(error.message, 500));
+   // return next(appErr(error.message, 500));
+    return res.render("404page.ejs");
   }
 };
 
@@ -111,7 +116,8 @@ exports.signin = async (req, res, next) => {
     });  */
    res.redirect("/api/v1/users/blogs");
   } catch (error) {
-    return next(appErr(error.message, 500));
+   // return next(appErr(error.message, 500));
+   res.render("404page.ejs");
   }
 };
 
@@ -129,7 +135,7 @@ exports.getBlogsPage = async(req,res,next) => {
       }
     })
   }catch(error){
-    return next(appErr(error.message))
+   res.render("404page.ejs")
   }
 }
 exports.ProfilePage = async (req, res, next) => {
@@ -158,7 +164,8 @@ exports.ProfilePage = async (req, res, next) => {
     // });
     res.render("profile.ejs",{userFound});
   } catch (error) {
-    return next(appErr(error.message, 500));
+    //return next(appErr(error.message, 500));
+    res.render("404page.ejs")
   }
 };
 
@@ -261,3 +268,13 @@ exports.uploadCoverPhoto = async (req,res,next) => {
   }
 }
  
+exports.logoutUser = async (req,res,next) => {
+  try{
+  //destroy session
+  res.clearCookie('token');
+  res.redirect("/api/v1/users/login");
+  
+  }catch(error){
+    return res.render("404page.ejs");
+  }
+}
