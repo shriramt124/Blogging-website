@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;500;600;700&display=swap');
+
+
+:root {
+    --primary-color: #6366F1;
+    --accent-color: #3f83f8;
+    --text-color: #333333;
+    --link-color: #2563eb;
+    --background-color: #ffffff;
+    --light-gray: #f0f0f0;
+    --gray: #808080;
+    --dark-gray: #555;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+}
+
+.container{
+    height: 100vh;
+    text-align: center;
+    padding: 20px;
+    background-image: url("../images/hero-bg.jpg");
+    background-size: cover;
+}
+
+.navContent{
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#logo{
+    color: #2563eb;
+}
+
+
+.navItems ul{
+    display: flex;
+    gap: 30px;
+}
+
+.navLinks{
+    list-style: none;
+    font-size: 20px;
+    color: white;
+    font-weight: 500;
+    transition: color 0.5s;   
+}
+
+.navLinks:hover{
+    color: #e93f1a;
+}
+
+.home-container{
+    width: 700px;
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-content{
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
+    margin-left: 200px;
+}
+
+.text-content h2{
+    color: white;
+    font-size: 50px;
+    font-weight: 400;
+    text-transform: uppercase;
+    line-height: 60px;
+}
+
+.text-content h2 span{
+    color: #e93f1a;
+}
+
+.text-content p{
+    color: white;
+    letter-spacing: 1px;
+}
+
+.btn{
+    margin-right: 260px;
+}
+
+.btn button{
+    display: inline-block;
+    padding: 10px 45px;
+    background-color: #e93f1a;
+    color: #ffffff;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.btn a button:hover{
+    background-color: transparent;
+    border-color: #e93f1a;
+    color: #e93f1a;
+}
+
+
+
+#about{
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    background-color: #19191b;
+}
+.about-us{
+    width:45%;
+ margin-top: 20px;
+ padding:10px;
+ height: 100%;;
+
+}
+.about-us p{
+    font-size:20px;
+    color:rgb(248, 248, 248);
+    margin-top: 50px;
+}
+.image-container{
+    width:40%;
+    margin-top: 30px;
+    
+}
+.image-container img{
+    width:350px;
+    height:350px;
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog</title>
+  <link rel="stylesheet" href="/styles/blog.css" />
+  <link rel="stylesheet" href="/styles/navstyle.css" />
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <%-include('partials/navbar.ejs') %>
+
+
+
+  <section class="grid-container">
+    
+    <div class="grid-content">
+      <div class="categories">
+        <p id="all">All</p>
+        <p>web designing</p>
+        <p>React Js</p>
+        <p>designing</p>
+        <p>web Development</p>
+     </div>
+     <br>
+    <hr>
+    <br>
+   
+      <div class="grid-cards">
+        <%if(posts.length > 0){ %>
+         
+       <% posts.forEach((post)=> { %>
+        <div class="card">
+          <div class="img-container">
+            <img src="<%=post.image%>" alt="" />
+            <div class="category-container">
+              <h2><%=post.category%></h2>
+            </div>
+          </div>
+          <div class="title-container">
+            <h2><%=post.title%></h2>
+          </div>
+          <div class="description-container">
+            <%if(post.description.length > 100){ %>
+         <% post.description = post.description.substring(0,100) +"..."%>
+        <% }%>
+             <p> <%=post.description%></p>
+          </div>
+          <div class="btn">
+            <a href="/api/v1/posts/fetch-single-post/<%=post._id%>">Read full article</a>
+          </div>
+        </div>
+       <%   }) %>
+      <%  }%>
+      
+        
+    
+     
+      </div>
+
+
+
+    </div>
+    </div>
+    </div>
+  </section>
+
+
+  <script src="https://kit.fontawesome.com/b33d24154e.js" crossorigin="anonymous"></script>
+ 
+</body>
+
+</html>

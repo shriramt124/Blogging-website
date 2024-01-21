@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Page</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href=" /styles/profile.css" />
+    <link rel="stylesheet" href="/styles/navstyle.css" />
+  </head>
+ 
+  <body>
+    <%-include('partials/navbar.ejs')%>
+    <div class="header__wrapper">
+      <header id="header"> 
+         <div class="edit">
+      
+                <a href="/api/v1/users/upload-cover-photo-form"><i class="fa-solid fa-camera"></i> </a>
+    
+          </div>
+        </header>
+        <script>
+          //select the header id 
+          const header = document.querySelector("#header");
+          const bgImageUrl = "<%=userFound?.coverImage%>"
+          header.style.background = `url(${bgImageUrl})`
+          
+        </script>
+      <div class="cols__container">
+        <div class="left__col">
+          <div class="img__container">
+            <img src="<%=userFound?.profileImage%>" alt="" />
+           <a href="/api/v1/users/upload-profile-photo-form"> <span></span></a>
+          </div>
+
+        
+          <h2><%=userFound.username%></h2>
+          <p><%=userFound.role%></p>
+          <p><%=userFound.email%></p>
+
+          <hr />
+
+          <div class="content">
+            <p><%=userFound.bio%></p>
+
+            <ul>
+              <li><i class="fab fa-twitter"></i></li>
+              <i class="fab fa-pinterest"></i>
+              <i class="fab fa-facebook"></i>
+              <i class="fab fa-dribbble"></i>
+            </ul>
+          </div>
+        </div>
+        <div class="right__col">
+          <nav>
+            <ul>
+              <li><a href="#">posts</a></li>
+            </ul>
+          </nav>
+
+          <div class="photos">
+            <%if(userFound.posts.length > 0 ){ %>
+            <%userFound.posts.forEach((post)=> { %>
+              <div class="container">
+          <a href="/api/v1/posts/fetch-single-post/<%=post._id%>" > <img src="<%=post.image%>" alt="Photo" />       
+          </a> 
+          <a href="/api/v1/users/profile-page" class="deletePost" data-post-id="<%= post._id %>">
+            <i class="fa-solid fa-trash"></i>
+        </a>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteLinks = document.querySelectorAll('.deletePost');
+        
+            deleteLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+        
+                    const postId = this.getAttribute('data-post-id');
+        
+                   
+        
+                   
+                        // Make a DELETE request using the Fetch API
+                        fetch(`/api/v1/posts/delete-post/${postId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                // Include any necessary headers, such as authentication headers
+                            },
+                            // Include any necessary request body or parameters
+                            // body: JSON.stringify({}),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Handle successful deletion
+                                console.log('Post deleted successfully');
+                                fetch("/api/v1/users/profile-page",{
+                                  method:"GET"
+                                }).then(response => {
+                                  if(response.ok){
+                                    cosnole.log("this is new page")
+                                  }
+                                })
+                            } else {
+                                // Handle error responses
+                                console.error('Error deleting post');
+                            }
+                        })
+                        .catch(error => {
+                            // Handle network or other errors
+                            console.error('Error:', error);
+                        });
+                    
+                });
+            });
+        });
+        </script>
+        
+        </div>
+            <% })%> 
+            <% }else{ %>
+            <h1>you have no posts yet</h1>
+            <% }%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

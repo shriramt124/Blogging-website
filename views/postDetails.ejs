@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostDetail</title>
+    <link rel="stylesheet" href="/styles/navstyle.css" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+  />
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", sans-serif;
+      text-decoration: none;
+    }
+    body {
+      width: 100%;
+    }
+
+    .content-container {
+      padding: 20px 50px;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+    }
+
+    .post-title {
+      width: 50%;
+
+      padding: 20px;
+      position: relative;
+    }
+
+    @media screen and (max-width:1080px) {
+        .container {
+            flex-direction: column;
+        }
+    }
+    .post-title h1 {
+      text-transform: capitalize;
+      color: gray;
+      font-size: 60px;
+      margin-top: 30px;
+    }
+
+    .user-info {
+      position: absolute;
+      bottom: 5px;
+      gap: 5px;
+
+      left: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .user-profile-image img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .post-image img {
+      border-radius: 10px;
+    }
+    .user-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .user-container span {
+      font-size: 14px;
+    }
+    .category {
+      position: absolute;
+      top: 5px;
+      color: blue;
+      left: 20px;
+    }
+    .post-description {
+      margin-top: 50px;
+      padding: 20px;
+    }
+    .post-description p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    .user-details {
+      display: flex;
+      flex-direction: column;
+    }
+    .comment-section {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .comment-section .comment {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: rgb(209, 205, 205);
+      padding: 10px;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .info .user-image img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+   
+    .comment-form{
+       
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+        
+    }
+    .comment-form button{
+        padding:10px;
+        background-color: rgb(151, 127, 119);
+        color:white;
+        width:100px;
+        font-size:18px;
+        border:none;
+        border-radius: 10px;
+    }
+  </style>
+  <body>
+    <%-include('partials/navbar.ejs') %>
+
+    <div class="content-container">
+      <div class="container">
+        <div class="post-title">
+          <h1><%=postFound.title%></h1>
+          <div class="category">
+            <p><%=postFound.category%></p>
+          </div>
+          <div class="user-info">
+            <div class="user-profile-image">
+              <img
+                src="<%=postFound.user.profileImage%>"
+                alt=""
+                width="100px"
+              />
+            </div>
+            <div class="user-container">
+              <div class="username">
+                <span><%=postFound.user.username%></span>
+              </div>
+              <div class="user-role">
+                <span><%=postFound.user.role%></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="post-image">
+          <img src="<%=postFound.image%>" alt="" width="500px" height="400px" />
+        </div>
+      </div>
+      <div class="post-description">
+        <p><%=postFound.description%></p>
+        <div class="footer">
+          <div class="comment-form">
+            <h2>Leave a comment</h2>
+            <form action="/api/v1/comments/create-comment/<%=postFound._id%>" method="post">
+              <div class="form-group">
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  cols="40"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn">Submit</button>
+            </form>
+          </div>
+
+          <div class="comment-section">
+            <%postFound.comments.forEach((comment)=>{ %> 
+            <% console.log(comment.user) %>
+            <div class="comment">
+              <div class="info">
+                <div class="user-image">
+                  <img src="<%=comment.user.profileImage%>" alt="" width="50px" height="50px" />
+                </div>
+                <div class="user-details">
+                  <div><%=comment.user.username%></div>
+                  <div><%=comment.user.email%></div>
+                </div>
+              </div>
+              <div class="comment-message">
+                <p><%=comment.message%></p>
+                <form
+                action="/api/v1/comments/delete-comment/<%=comment?._id%>?_method=DELETE&postId=<%=postFound?._id%>"
+                method="post"
+              >
+                <button type="submit">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </form>
+              </div>
+            </div>
+            <%})%>
+
+            
+        
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
